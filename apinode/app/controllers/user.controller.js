@@ -22,13 +22,28 @@ exports.create = async(req, res) => {
         created_at: today
 
     });
-    users.create(user, (err, data) => {
-        if (err)
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the user."
-            });
-        else res.send(data);
+
+    users.checkUsername(req.body.username, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                users.create(user, (err, data) => {
+                    if (err)
+                        res.status(500).send({
+                            message: err.message || "Some error occurred while creating the user."
+                        });
+                    else res.send(data);
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error retrieving user with id " + req.params.userId
+                });
+            }
+        } else res.send({
+            message: `Username ` + req.body.username + ' Exist please input other username'
+        });
     });
+
+
 };
 
 // Retrieve all Customers from the database.

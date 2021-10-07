@@ -129,7 +129,7 @@ User.removeAll = result => {
     });
 };
 User.checkUsername = (username, result) => {
-    sql.query(`SELECT * FROM user WHERE username = ${username}`, (err, res) => {
+    sql.query("SELECT * FROM user WHERE username = '" + username + "'", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
