@@ -17,6 +17,6 @@ module.exports = app => {
     // Delete a user with usuerId
     app.delete("/users/:userId", user.delete);
 
-    // Create a new user
+    // delete all user
     app.delete("/users", user.deleteAll);
 };

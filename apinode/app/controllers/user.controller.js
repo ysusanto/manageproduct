@@ -22,6 +22,7 @@ exports.create = async(req, res) => {
         created_at: today
 
     });
+    
 
     users.checkUsername(req.body.username, (err, data) => {
         if (err) {
